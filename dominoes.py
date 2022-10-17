@@ -133,7 +133,7 @@ class Domino:
                 playing_now.append(self.domino_pieces.pop(take_piece))
             return True
 
-    def calculate_and_pick(self):  # Calculating piece with highly represented numbers and trying to add it to table
+    def calculate_and_pick(self):  # Calculating piece with highly represented numbers
         number_count = {"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0}
         all_pieces = self.snake + self.computer_pieces
         counted_pairs = []
@@ -144,7 +144,7 @@ class Domino:
         for part in self.computer_pieces:
             duplicate_pairs.append(part)
             counted_pairs.append(number_count[str(part[0])] + number_count[str(part[1])])
-        while len(duplicate_pairs) > 0:
+        while len(duplicate_pairs) > 0:  # Trying to add chosen piece to table
             i = counted_pairs.index(max(counted_pairs))
             chosen_pair = duplicate_pairs[i]
             if self.snake[0][0] in chosen_pair:
