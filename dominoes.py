@@ -15,7 +15,7 @@ class Domino:
         self.print_info()
         self.adding_pieces()
 
-    def shuffle(self):
+    def shuffle(self):  # Shuffling the deck
         self.domino_pieces = [[a, b] for b in range(7) for a in range(7) if a <= b]
         random.shuffle(self.domino_pieces)
         for _ in range(7):
