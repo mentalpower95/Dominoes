@@ -16,13 +16,13 @@ class Domino:
         self.adding_pieces()
 
     def shuffle(self):  # Shuffling the deck
-        self.domino_pieces = [[a, b] for b in range(7) for a in range(7) if a <= b]
+        self.domino_pieces = [[a, b] for b in range(7) for a in range(7) if a <= b]  # Creating domino pieces (pairs from [0, 0] to [6, 6])
         random.shuffle(self.domino_pieces)
         for _ in range(7):
             self.computer_pieces.append(self.domino_pieces.pop())
             self.player_pieces.append(self.domino_pieces.pop())
 
-    def start_game(self):
+    def start_game(self):  # Player with higher "double" starts game
         starting_pairs = [[6, 6], [5, 5], [4, 4], [3, 3], [2, 2], [1, 1], [0, 0]]
         for pair in starting_pairs:
             if pair in self.player_pieces:
@@ -37,7 +37,7 @@ class Domino:
 
     def adding_pieces(self):
         while True:
-            if self.status == "player":
+            if self.status == "player":  # Players turn to pick a piece
                 playing_now = self.player_pieces
                 while True:
                     chosen_number = input()
@@ -57,7 +57,7 @@ class Domino:
                 if pressing == "":
                     pass
                 if not self.calculate_and_pick():
-                    if len(self.domino_pieces) != 0:
+                    if len(self.domino_pieces) != 0:  # Computer takes one piece from stack (if available)
                         take_piece = random.randrange(len(self.domino_pieces))
                         self.computer_pieces.append(self.domino_pieces.pop(take_piece))
 
@@ -102,7 +102,7 @@ class Domino:
         else:
             print("\nStatus: It's your turn to make a move. Enter your command.")
 
-    def checking_if_legal(self, chosen_number, playing_now):
+    def checking_if_legal(self, chosen_number, playing_now):  # Checking if chosen piece could be played
         if chosen_number > 0:
             check = playing_now[chosen_number - 1]
             if self.snake[-1][-1] in check:
@@ -133,7 +133,7 @@ class Domino:
                 playing_now.append(self.domino_pieces.pop(take_piece))
             return True
 
-    def calculate_and_pick(self):
+    def calculate_and_pick(self):  # Calculating piece with highly represented numbers and trying to add it to table
         number_count = {"0": 0, "1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0}
         all_pieces = self.snake + self.computer_pieces
         counted_pairs = []
@@ -168,6 +168,5 @@ class Domino:
         return False
 
 
-
-
-Domino().main()
+if '__main__' == __name__:
+    Domino().main()
